@@ -21,12 +21,12 @@ namespace mdl
             const char* orig    = BinaryData::getNamedResourceOriginalFilename (resName);
             if (orig == nullptr) continue;
 
-            juce::String file (juce::CharPointer_UTF8 (orig));
+            juce::String file = juce::String::fromUTF8 (orig);
             if (! file.endsWithIgnoreCase (".wav")) continue;
 
             file = file.dropLastCharacters (4);                 // quita ".wav"
-            auto category = file.upToFirstOccurrenceOf ("-", false, false);
-            auto name     = file.fromFirstOccurrenceOf ("-", false, false);
+            const juce::String category = file.upToFirstOccurrenceOf ("-", false, false);
+            const juce::String name     = file.fromFirstOccurrenceOf ("-", false, false);
             if (category.isEmpty() || name.isEmpty()) continue;
 
             SampleInfo s;
